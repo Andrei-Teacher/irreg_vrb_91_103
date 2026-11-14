@@ -1,0 +1,1665 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Викторина: Глаголы 91-103</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #3b1028 0%, #9d174d 48%, #c2410c 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 720px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(30, 27, 75, 0.55),
+                        0 0 0 4px rgba(45, 212, 191, 0.25);
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border-top: 6px solid #fb923c;
+        }
+
+        h1 {
+            color: #4a1938;
+            font-size: 2.4em;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 0 rgba(45, 212, 191, 0.35);
+        }
+
+        .subtitle {
+            color: #9a3412;
+            font-size: 1.15em;
+            margin-bottom: 28px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            background: rgba(45, 212, 191, 0.12);
+            display: inline-block;
+            padding: 8px 22px;
+            border-radius: 20px;
+        }
+
+        /* ===== Экран выбора режима ===== */
+        .mode-screen {
+            display: block;
+        }
+
+        .mode-title {
+            color: #4a1938;
+            font-size: 1.25em;
+            margin-bottom: 14px;
+        }
+
+        .mode-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .mode-btn {
+            border: none;
+            padding: 12px 10px;
+            border-radius: 15px;
+            font-size: 1.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mode-btn::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.18), transparent 60%);
+            pointer-events: none;
+        }
+
+        .mode-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .mode-btn:active {
+            transform: translateY(0);
+        }
+
+        .mode-btn.mode-v2 {
+            background: linear-gradient(135deg, #f97316 0%, #c2410c 100%);
+        }
+
+        .mode-btn.mode-v3 {
+            background: linear-gradient(135deg, #e879a9 0%, #9d174d 100%);
+        }
+
+        .mode-btn.mode-both {
+            background: linear-gradient(135deg, #fb923c 0%, #c2410c 100%);
+        }
+
+        .mode-btn.mode-translate {
+            background: linear-gradient(135deg, #f43f5e 0%, #be123c 100%);
+        }
+
+        .mode-btn.mode-weak {
+            background: linear-gradient(135deg, #0f766e 0%, #115e59 100%);
+        }
+
+        .mode-btn:disabled {
+            opacity: 0.48;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+        }
+
+        .mode-btn .mode-emoji {
+            font-size: 1.1em;
+            display: inline;
+            margin-right: 4px;
+        }
+
+        .mode-btn .mode-desc {
+            display: block;
+            font-size: 0.68em;
+            line-height: 1.25;
+            opacity: 0.95;
+            margin-top: 4px;
+        }
+
+        /* ===== Список пройденных режимов ===== */
+        .mode-progress {
+            margin-top: 24px;
+            padding: 18px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(157, 23, 77, 0.08), rgba(249, 115, 22, 0.12));
+            border: 2px solid rgba(157, 23, 77, 0.16);
+            text-align: left;
+        }
+        .mode-progress-title { color: #4a1938; font-weight: bold; font-size: 1.1em; margin-bottom: 12px; text-align: center; }
+        .mode-progress-list { list-style: none; display: grid; gap: 8px; }
+        .mode-progress-item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 12px; background: rgba(255,255,255,0.8); color: #6b3652; }
+        .mode-progress-item.completed { background: #fff0e6; color: #9a3412; font-weight: bold; }
+        .mode-progress-result { margin-left: auto; text-align: right; font-size: .85em; white-space: nowrap; }
+        .mode-progress-status { display: block; font-size: .82em; font-weight: normal; }
+        .mode-progress-mark { width: 24px; height: 24px; flex: 0 0 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; border: 2px solid #e7a7bd; color: #b45375; font-size: 0.85em; }
+        .mode-progress-item.completed .mode-progress-mark { background: #16a34a; border-color: #16a34a; color: white; }
+        .reset-progress-btn { display: block; margin: 12px auto 0; border: 0; background: transparent; color: #9d174d; text-decoration: underline; cursor: pointer; font: inherit; font-size: 0.9em; }
+
+        /* ===== Прогресс-кружки ===== */
+        .progress-dots {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 26px;
+            padding: 14px 10px;
+            background: rgba(45, 212, 191, 0.1);
+            border-radius: 20px;
+            box-shadow: inset 0 2px 6px rgba(30, 27, 75, 0.1);
+        }
+
+        .dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #fff7ed;
+            border: 2.5px solid #fed7aa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85em;
+            font-weight: bold;
+            color: #c08497;
+            transition: all 0.4s ease;
+        }
+
+        .dot.current {
+            background: #ffedd5;
+            border-color: #ea580c;
+            color: #9a3412;
+            animation: pulse 1.5s infinite;
+            transform: scale(1.1);
+        }
+
+        .dot.correct {
+            background: linear-gradient(135deg, #fb923c 0%, #c2410c 100%);
+            border-color: #9a3412;
+            color: white;
+            box-shadow: 0 3px 8px rgba(13, 148, 136, 0.4);
+        }
+
+        .dot.wrong {
+            background: linear-gradient(135deg, #f43f5e 0%, #be123c 100%);
+            border-color: #be123c;
+            color: white;
+            box-shadow: 0 3px 8px rgba(225, 29, 72, 0.4);
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.5); }
+            50% { box-shadow: 0 0 0 8px rgba(245, 158, 11, 0); }
+        }
+
+        /* ===== Счётчик серии ===== */
+        .streak-counter {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 20px;
+            padding: 15px 25px;
+            box-shadow: 0 8px 25px rgba(124, 58, 237, 0.3);
+            text-align: center;
+            z-index: 1000;
+            display: none;
+            border: 2px solid #e879a9;
+        }
+
+        .streak-counter.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100px); opacity: 0; }
+            to   { transform: translateX(0); opacity: 1; }
+        }
+
+        .streak-label {
+            font-size: 0.9em;
+            color: #4a1938;
+            margin-bottom: 5px;
+        }
+
+        .streak-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #be123c;
+            text-shadow: 2px 2px 4px rgba(225, 29, 72, 0.25);
+        }
+
+        .streak-fire {
+            font-size: 1.5em;
+        }
+
+        /* ===== Достижение ===== */
+        .achievement-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(30, 27, 75, 0.45);
+            text-align: center;
+            z-index: 2000;
+            opacity: 0;
+            transition: all 0.5s ease;
+            border: 3px solid #9d174d;
+        }
+
+        .achievement-popup.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        .achievement-emoji {
+            font-size: 5em;
+            margin-bottom: 20px;
+            animation: bounce 0.8s ease;
+        }
+
+        .achievement-title {
+            font-size: 2em;
+            color: #4a1938;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .achievement-desc {
+            font-size: 1.3em;
+            color: #6b2146;
+        }
+
+        /* ===== Вопрос ===== */
+        .question {
+            font-size: 1.5em;
+            color: #4a1938;
+            margin-bottom: 26px;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .question .translation {
+            font-size: 0.7em;
+            color: #c2410c;
+            font-style: italic;
+        }
+
+        /* ===== Сетка ответов 2×2 ===== */
+        .answers {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 26px;
+        }
+
+        /* Спокойный индиго-синий цвет кнопок ответов */
+        .answer-btn {
+            background: linear-gradient(135deg, #a21caf 0%, #86198f 100%);
+            color: white;
+            border: 3px solid #701a75;
+            padding: 20px 12px;
+            border-radius: 15px;
+            font-size: 1.15em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            box-shadow: 0 5px 15px rgba(79, 70, 229, 0.25);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            word-break: break-word;
+            line-height: 1.2;
+        }
+
+        .answer-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
+            background: linear-gradient(135deg, #d946ef 0%, #a21caf 100%);
+            border-color: #a21caf;
+        }
+
+        .answer-btn:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .answer-btn:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .feedback {
+            font-size: 2em;
+            margin: 20px 0;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .correct {
+            color: #c2410c;
+            animation: bounce 0.5s ease;
+        }
+
+        .incorrect {
+            color: #be123c;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        /* ===== Финальный экран ===== */
+        .final-screen {
+            display: none;
+        }
+
+        .final-screen h2 {
+            color: #4a1938;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .score-block {
+            background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: inset 0 2px 6px rgba(13, 148, 136, 0.15);
+            border: 2px solid #fdba74;
+        }
+
+        .score-line {
+            font-size: 1.4em;
+            color: #4a1938;
+            margin: 15px 0;
+        }
+
+        .score-line strong {
+            color: #9a3412;
+            font-size: 1.3em;
+        }
+
+        .percent {
+            font-size: 3em;
+            color: #9d174d;
+            margin: 20px 0;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(124, 58, 237, 0.25);
+        }
+
+        .achievements-block {
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 2px solid #e879a9;
+        }
+
+        .achievements-title {
+            color: #4a1938;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .achievement-badge {
+            display: inline-block;
+            background: white;
+            border-radius: 15px;
+            padding: 15px 20px;
+            margin: 8px;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
+            border: 2px solid #ddd6fe;
+        }
+
+        .achievement-badge .badge-emoji {
+            font-size: 2em;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .achievement-badge .badge-text {
+            font-size: 0.9em;
+            color: #6b2146;
+        }
+
+        .mistakes-block {
+            background: linear-gradient(135deg, #ffe4e6 0%, #fecdd3 100%);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .mistakes-title {
+            color: #be123c;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .mistake-card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 6px rgba(190, 18, 60, 0.15);
+            border-left: 4px solid #f43f5e;
+        }
+
+        .mistake-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .mistake-verb {
+            font-size: 1.3em;
+            color: #4a1938;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .mistake-translation {
+            font-size: 0.9em;
+            color: #c2410c;
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+
+        .mistake-forms {
+            font-size: 1.05em;
+            color: #6b2146;
+        }
+
+        .mistake-forms .correct-form {
+            color: #c2410c;
+            font-weight: bold;
+        }
+
+        .no-mistakes {
+            background: linear-gradient(135deg, #ffedd5 0%, #fed7aa 100%);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: center;
+            border: 2px solid #fdba74;
+        }
+
+        .no-mistakes-text {
+            font-size: 1.4em;
+            color: #9a3412;
+            font-weight: bold;
+        }
+
+        .play-again-btn {
+            background: linear-gradient(135deg, #fb923c 0%, #c2410c 100%);
+            color: white;
+            border: 3px solid #9a3412;
+            padding: 20px 50px;
+            border-radius: 15px;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            box-shadow: 0 5px 15px rgba(13, 148, 136, 0.4);
+            margin-top: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .play-again-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(13, 148, 136, 0.55);
+            background: linear-gradient(135deg, #ea580c 0%, #9a3412 100%);
+            border-color: #9a3412;
+        }
+
+        .emoji {
+            font-size: 3em;
+            margin: 20px 0;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Адаптив для маленьких экранов */
+        @media (max-width: 520px) {
+            .container { padding: 26px 18px; }
+            h1 { font-size: 1.7em; }
+            .mode-buttons { gap: 8px; }
+            .mode-btn { padding: 11px 7px; font-size: .98em; border-radius: 13px; }
+            .mode-btn .mode-desc { font-size: .64em; }
+            .mode-progress { padding: 12px; }
+            .mode-progress-item { padding: 8px; gap: 7px; font-size: .9em; }
+            .answer-btn { font-size: 1em; padding: 16px 8px; min-height: 62px; }
+            .question { font-size: 1.2em; }
+            .percent { font-size: 2.4em; }
+        }
+
+        /* ===== Новая палитра: северное сияние ===== */
+        body {
+            background: linear-gradient(135deg, #071a2b 0%, #123e5c 48%, #176b70 100%);
+        }
+        .container {
+            background: rgba(246, 252, 255, 0.98);
+            box-shadow: 0 20px 60px rgba(2, 12, 27, 0.5),
+                        0 0 0 4px rgba(103, 232, 249, 0.22);
+            border-top-color: #22d3ee;
+        }
+        h1, .mode-title, .mode-progress-title, .question,
+        .achievement-title, .final-screen h2, .score-line, .mistake-verb {
+            color: #12334a;
+            text-shadow: none;
+        }
+        h1 { text-shadow: 2px 2px 0 rgba(103, 232, 249, 0.3); }
+        .subtitle {
+            color: #0f766e;
+            background: rgba(45, 212, 191, 0.14);
+        }
+        .mode-btn.mode-v2 { background: linear-gradient(135deg, #0891b2, #155e75); }
+        .mode-btn.mode-v3 { background: linear-gradient(135deg, #6366f1, #4338ca); }
+        .mode-btn.mode-both { background: linear-gradient(135deg, #14b8a6, #0f766e); }
+        .mode-btn.mode-translate { background: linear-gradient(135deg, #818cf8, #5b21b6); }
+        .mode-btn.mode-weak { background: linear-gradient(135deg, #0f766e, #134e4a); }
+        .mode-progress {
+            background: linear-gradient(135deg, rgba(8, 145, 178, 0.08), rgba(99, 102, 241, 0.08));
+            border-color: rgba(8, 145, 178, 0.2);
+        }
+        .mode-progress-item { color: #31566b; }
+        .mode-progress-item.completed { background: #ccfbf1; color: #115e59; }
+        .mode-progress-mark { border-color: #99dce5; color: #0e7490; }
+        .reset-progress-btn { color: #0e7490; }
+        .progress-dots { background: rgba(8, 145, 178, 0.09); }
+        .dot { background: #ecfeff; border-color: #a5f3fc; color: #477487; }
+        .dot.current { background: #cffafe; border-color: #0891b2; color: #155e75; }
+        .dot.correct { background: linear-gradient(135deg, #2dd4bf, #0f766e); border-color: #0f766e; }
+        .dot.wrong { background: linear-gradient(135deg, #818cf8, #4338ca); border-color: #4338ca; }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.5); }
+            50% { box-shadow: 0 0 0 8px rgba(34, 211, 238, 0); }
+        }
+        .streak-counter { box-shadow: 0 8px 25px rgba(8, 145, 178, 0.22); border-color: #67e8f9; }
+        .streak-label { color: #12334a; }
+        .streak-number { color: #0e7490; text-shadow: none; }
+        .achievement-popup {
+            background: linear-gradient(135deg, #ecfeff, #ccfbf1);
+            border-color: #0891b2;
+        }
+        .achievement-desc { color: #31566b; }
+        .question .translation, .mistake-translation { color: #0e7490; }
+        .answer-btn {
+            background: linear-gradient(135deg, #2563eb 0%, #4338ca 100%);
+            border-color: #3730a3;
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.22);
+        }
+        .answer-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, #06b6d4 0%, #2563eb 100%);
+            border-color: #0891b2;
+            box-shadow: 0 8px 20px rgba(8, 145, 178, 0.3);
+        }
+        .feedback .correct, .correct { color: #0f766e; }
+        .incorrect { color: #4f46e5; }
+        .score-block {
+            background: linear-gradient(135deg, #ecfeff, #cffafe);
+            border-color: #67e8f9;
+            box-shadow: inset 0 2px 6px rgba(8, 145, 178, 0.12);
+        }
+        .score-line strong, .mistake-forms .correct-form { color: #0e7490; }
+        .percent { color: #4f46e5; text-shadow: 2px 2px 4px rgba(79, 70, 229, 0.18); }
+        .achievements-block {
+            background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+            border-color: #a5b4fc;
+        }
+        .achievements-title { color: #312e81; }
+        .achievement-badge { box-shadow: 0 4px 12px rgba(79, 70, 229, 0.14); border-color: #c7d2fe; }
+        .achievement-badge .badge-text, .mistake-forms { color: #31566b; }
+        .mistakes-block { background: linear-gradient(135deg, #eff6ff, #e0f2fe); }
+        .mistakes-title { color: #4338ca; }
+        .mistake-card { box-shadow: 0 2px 6px rgba(37, 99, 235, 0.12); border-left-color: #6366f1; }
+        .no-mistakes { background: linear-gradient(135deg, #ccfbf1, #ecfeff); border-color: #5eead4; }
+        .no-mistakes-text { color: #115e59; }
+        .play-again-btn {
+            background: linear-gradient(135deg, #0891b2, #155e75);
+            border-color: #164e63;
+            box-shadow: 0 5px 15px rgba(8, 145, 178, 0.28);
+        }
+        .play-again-btn:hover {
+            background: linear-gradient(135deg, #14b8a6, #0f766e);
+            border-color: #0f766e;
+            box-shadow: 0 8px 20px rgba(20, 184, 166, 0.35);
+        }
+    
+/* Обновление оформления: компактный прогресс в два столбца */
+.progress-grid,
+.progress-stats,
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.progress-grid > *,
+.progress-stats > *,
+.stats-grid > * {
+  min-width: 0;
+}
+@media (max-width: 420px) {
+  .progress-grid,
+  .progress-stats,
+  .stats-grid {
+    gap: 8px;
+  }
+}
+/* Новая цветовая схема: сливовый, лавандовый и мятный акценты */
+:root {
+  --bg: #f6f0ff;
+  --panel: #ffffff;
+  --card: #fbf8ff;
+  --text: #302343;
+  --muted: #786b8a;
+  --primary: #7851a9;
+  --primary-hover: #62408f;
+  --accent: #28a895;
+  --border: #e2d6f2;
+  --success: #21856f;
+  --danger: #c65370;
+}
+body {
+  background: linear-gradient(135deg, #f6f0ff 0%, #eaf8f4 100%);
+  color: var(--text);
+}
+
+
+/* Страховочное правило для карточек статистики в блоке прогресса */
+#progress .stats, #progress .progress, #progress .progress-items,
+#progress .progress-stats, #progress .stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+
+/* Точные настройки списка «Твой прогресс»: два столбца */
+.mode-progress-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+}
+.mode-progress-item {
+  min-width: 0;
+  padding: 9px 10px;
+  background: rgba(255, 255, 255, 0.88);
+  color: #24445b;
+  border: 1px solid #c9e2ef;
+}
+.mode-progress-item.completed {
+  background: #dff7f0;
+  color: #176b61;
+}
+.mode-progress-item.completed .mode-progress-mark {
+  background: #168a83;
+  border-color: #168a83;
+}
+.mode-progress-mark {
+  border-color: #8ab9d2;
+  color: #286a8a;
+}
+.mode-progress-result {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.mode-progress {
+  background: linear-gradient(135deg, rgba(219, 239, 250, 0.9), rgba(219, 248, 239, 0.9));
+  border-color: #b9dceb;
+}
+.mode-progress-title,
+h1,
+.mode-title {
+  color: #204c68;
+}
+.subtitle {
+  color: #176b75;
+  background: rgba(45, 170, 166, 0.14);
+}
+.mode-btn.mode-v2 { background: linear-gradient(135deg, #2387b5, #245a91); }
+.mode-btn.mode-v3 { background: linear-gradient(135deg, #36b6a5, #167e83); }
+.mode-btn.mode-both { background: linear-gradient(135deg, #5b9bd5, #3867a8); }
+.mode-btn.mode-translate { background: linear-gradient(135deg, #48b8a9, #237e91); }
+.mode-btn.mode-weak { background: linear-gradient(135deg, #347c9f, #244f70); }
+.reset-progress-btn { color: #176b75; }
+@media (max-width: 420px) {
+  .mode-progress-list { gap: 7px; }
+  .mode-progress-item { gap: 6px; padding: 8px 7px; font-size: 0.9em; }
+  .mode-progress-result { font-size: 0.78em; }
+}
+
+
+/* ===== Зимняя тема: морозное небо и ледяные оттенки ===== */
+:root {
+  --winter-ink: #18334f;
+  --winter-blue: #28658a;
+  --winter-cyan: #4caec5;
+  --winter-lilac: #8797d5;
+  --winter-ice: #eaf7fc;
+}
+body {
+  background:
+    radial-gradient(circle at 12% 16%, rgba(255,255,255,.85) 0 2px, transparent 3px),
+    radial-gradient(circle at 82% 24%, rgba(255,255,255,.7) 0 2px, transparent 3px),
+    radial-gradient(circle at 70% 78%, rgba(255,255,255,.75) 0 2px, transparent 3px),
+    linear-gradient(145deg, #102b49 0%, #245d83 48%, #6fa9c5 100%);
+  background-size: 140px 140px, 190px 190px, 230px 230px, auto;
+  color: var(--winter-ink);
+}
+.container {
+  background: rgba(248, 253, 255, .98);
+  border-top: 6px solid #8bd3e5;
+  box-shadow: 0 22px 60px rgba(5, 25, 48, .42), 0 0 0 4px rgba(210, 242, 250, .25);
+}
+h1, .mode-title, .mode-progress-title, .question,
+.achievement-title, .final-screen h2, .score-line, .mistake-verb,
+.achievements-title, .streak-label { color: var(--winter-ink); text-shadow: none; }
+h1 { text-shadow: 2px 2px 0 rgba(139, 211, 229, .45); }
+.subtitle {
+  color: #28658a;
+  background: rgba(121, 201, 222, .2);
+  border: 1px solid rgba(76, 174, 197, .25);
+}
+.mode-btn.mode-v2 { background: linear-gradient(135deg, #287fa8, #174c73); }
+.mode-btn.mode-v3 { background: linear-gradient(135deg, #8797d5, #5969a9); }
+.mode-btn.mode-both { background: linear-gradient(135deg, #54b7c8, #287d9c); }
+.mode-btn.mode-translate { background: linear-gradient(135deg, #9aaee8, #6478b8); }
+.mode-btn.mode-weak { background: linear-gradient(135deg, #397e91, #24566d); }
+.mode-progress {
+  background: linear-gradient(135deg, #e7f5fb, #edf0fc);
+  border-color: #c1e0ed;
+}
+.mode-progress-item { background: rgba(255,255,255,.9); color: #31566f; border: 1px solid #d5e8f0; }
+.mode-progress-item.completed { background: #dff4f5; color: #236b77; }
+.mode-progress-mark { border-color: #a9d4e3; color: #347b99; }
+.mode-progress-item.completed .mode-progress-mark { background: #398f9b; border-color: #398f9b; }
+.reset-progress-btn, .question .translation, .mistake-translation { color: #287d9c; }
+.progress-dots { background: rgba(190, 228, 241, .38); }
+.dot { background: #f4fbfe; border-color: #c5e5f0; color: #52788d; }
+.dot.current { background: #d9f2f8; border-color: #3b9fba; color: #205d7c; }
+.dot.correct { background: linear-gradient(135deg, #64c5c8, #318b9a); border-color: #287d8d; }
+.dot.wrong { background: linear-gradient(135deg, #9aa9df, #6575b7); border-color: #5969a9; }
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(76, 174, 197, .45); }
+  50% { box-shadow: 0 0 0 8px rgba(76, 174, 197, 0); }
+}
+.streak-counter { border-color: #b8e5ef; box-shadow: 0 8px 25px rgba(30, 91, 125, .22); }
+.streak-number { color: #287d9c; text-shadow: none; }
+.achievement-popup { background: linear-gradient(135deg, #e7f7fb, #e9effc); border-color: #83c9dc; }
+.achievement-desc, .achievement-badge .badge-text, .mistake-forms { color: #31566f; }
+.answer-btn {
+  background: linear-gradient(135deg, #347fa8, #275a91);
+  border-color: #214d7a;
+  box-shadow: 0 5px 15px rgba(39, 90, 145, .22);
+}
+.answer-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #55b8ca, #347fa8);
+  border-color: #2e91ad;
+  box-shadow: 0 8px 20px rgba(52, 127, 168, .3);
+}
+.feedback .correct, .correct, .score-line strong, .mistake-forms .correct-form { color: #287d78; }
+.incorrect { color: #6675b5; }
+.score-block { background: linear-gradient(135deg, #e8f7fb, #dff1f8); border-color: #b7e0ec; box-shadow: inset 0 2px 6px rgba(52, 127, 168, .12); }
+.percent { color: #6478b8; text-shadow: 2px 2px 4px rgba(100, 120, 184, .16); }
+.achievements-block { background: linear-gradient(135deg, #eef5fc, #e8edfb); border-color: #c4d2ef; }
+.achievements-title, .mistakes-title { color: #405b91; }
+.achievement-badge { box-shadow: 0 4px 12px rgba(76, 108, 160, .14); border-color: #c9d9ed; }
+.mistakes-block { background: linear-gradient(135deg, #edf6fc, #e8f1fa); }
+.mistake-card { box-shadow: 0 2px 6px rgba(39, 90, 145, .12); border-left-color: #8299cf; }
+.no-mistakes { background: linear-gradient(135deg, #e0f5f5, #eaf8fc); border-color: #a8dfe4; }
+.no-mistakes-text { color: #286b76; }
+.play-again-btn { background: linear-gradient(135deg, #287fa8, #174c73); border-color: #174c73; box-shadow: 0 5px 15px rgba(39, 90, 145, .25); }
+.play-again-btn:hover { background: linear-gradient(135deg, #54b7c8, #287d9c); border-color: #287d9c; box-shadow: 0 8px 20px rgba(40, 125, 156, .3); }
+@media (max-width: 520px) {
+  .streak-counter { top: 8px; right: 8px; }
+}
+
+
+        /* ===== Новая тема: Полярная ночь ===== */
+        body { background: radial-gradient(ellipse at top, #334155 0%, #172554 48%, #090b2a 100%); }
+        .container { background: rgba(248, 250, 255, 0.98); box-shadow: 0 20px 60px rgba(5, 8, 35, .55), 0 0 0 4px rgba(129, 140, 248, .28); border-top-color: #818cf8; }
+        h1, .mode-title, .mode-progress-title { color: #25245b; text-shadow: 2px 2px 0 rgba(165, 180, 252, .35); }
+        .subtitle { color: #4338ca; background: rgba(129, 140, 248, .14); }
+        .mode-btn.mode-v2 { background: linear-gradient(135deg, #6366f1, #4338ca); }
+        .mode-btn.mode-v3 { background: linear-gradient(135deg, #a78bfa, #6d28d9); }
+        .mode-btn.mode-both { background: linear-gradient(135deg, #818cf8, #4f46e5); }
+        .mode-btn.mode-translate { background: linear-gradient(135deg, #c084fc, #7e22ce); }
+        .mode-btn.mode-weak { background: linear-gradient(135deg, #0e7490, #155e75); }
+        .mode-progress { background: linear-gradient(135deg, rgba(99,102,241,.08), rgba(192,132,252,.12)); border-color: rgba(99,102,241,.2); }
+        .mode-progress-item { color: #37356f; }
+        .mode-progress-item.completed { background: #eef2ff; color: #4338ca; }
+        .mode-progress-mark { border-color: #c4b5fd; color: #6d28d9; }
+        .reset-progress-btn { color: #4f46e5; }
+        .progress-dots { background: rgba(129,140,248,.12); }
+        .dot { background: #eef2ff; border-color: #c7d2fe; color: #6366f1; }
+        .dot.current { background: #e0e7ff; border-color: #6366f1; color: #3730a3; }
+        .dot.correct { background: linear-gradient(135deg, #818cf8, #4f46e5); border-color: #4338ca; }
+        .dot.wrong { background: linear-gradient(135deg, #c084fc, #7e22ce); border-color: #7e22ce; }
+        .streak-counter { border-color: #a78bfa; box-shadow: 0 8px 25px rgba(79,70,229,.25); }
+
+    </style>
+
+    <style>
+      /* Новая тема: закатное сияние — коралловый, янтарный и сливовый */
+      body { background: radial-gradient(circle at top left, #fbbf77 0%, transparent 35%), linear-gradient(135deg, #32134b 0%, #74345f 52%, #c45b4b 100%) !important; }
+      .container { background: rgba(255, 250, 242, .98) !important; border-top-color: #f59e0b !important; box-shadow: 0 20px 60px rgba(35, 12, 44, .42), 0 0 0 4px rgba(251, 191, 36, .22) !important; }
+      h1, .mode-title, .mode-progress-title { color: #51264f !important; text-shadow: none !important; }
+      .subtitle { color: #9a3f50 !important; background: rgba(251, 146, 60, .16) !important; }
+      .mode-btn.mode-v2 { background: linear-gradient(135deg, #f59e0b, #c2410c) !important; }
+      .mode-btn.mode-v3 { background: linear-gradient(135deg, #b45385, #713f75) !important; }
+      .mode-btn.mode-both { background: linear-gradient(135deg, #e87955, #b8325c) !important; }
+      .mode-btn.mode-translate { background: linear-gradient(135deg, #d97706, #92400e) !important; }
+      .mode-btn.mode-weak { background: linear-gradient(135deg, #8b5cf6, #5b367e) !important; }
+      .mode-progress { background: linear-gradient(135deg, #fff1dc, #fce7e8) !important; border-color: #f3c6a2 !important; }
+      .mode-progress-item { background: rgba(255,255,255,.9) !important; color: #63394e !important; border-color: #f0c9b2 !important; }
+      .mode-progress-item.completed { background: #ffedd5 !important; color: #9a3412 !important; }
+      .mode-progress-item.completed .mode-progress-mark { background: #ea7b42 !important; border-color: #ea7b42 !important; }
+      .mode-progress-mark { border-color: #d99b79 !important; color: #9a4b45 !important; }
+      .reset-progress-btn { color: #a04450 !important; }
+      .progress-dots { background: rgba(180, 83, 133, .12) !important; }
+      .dot { background: #fff7ed !important; border-color: #f3c6a2 !important; color: #75445b !important; }
+      .dot.current { background: #fed7aa !important; border-color: #ea580c !important; color: #7c2d12 !important; }
+      .dot.correct { background: linear-gradient(135deg, #fbbf24, #d97706) !important; border-color: #b45309 !important; }
+      .dot.wrong { background: linear-gradient(135deg, #e879a9, #9d174d) !important; border-color: #9d174d !important; }
+      button:not(.mode-btn) { accent-color: #c45b4b; }
+    </style>
+
+
+    <style>
+      /* Новая тема: изумрудное сияние — глубокий зелёный, мята и лайм */
+      body { background: radial-gradient(circle at 12% 10%, rgba(110,231,183,.55), transparent 30%), radial-gradient(circle at 90% 85%, rgba(163,230,53,.35), transparent 32%), linear-gradient(135deg, #062f2b 0%, #087e70 52%, #164e63 100%) !important; }
+      .container { background: rgba(245,255,250,.98) !important; border-top-color: #34d399 !important; box-shadow: 0 20px 60px rgba(2,30,28,.5), 0 0 0 4px rgba(110,231,183,.24) !important; }
+      h1, .mode-title, .mode-progress-title, .final-screen h2 { color: #064e3b !important; text-shadow: none !important; }
+      .subtitle { color: #047857 !important; background: rgba(52,211,153,.16) !important; }
+      .mode-btn.mode-v2 { background: linear-gradient(135deg, #10b981, #047857) !important; }
+      .mode-btn.mode-v3 { background: linear-gradient(135deg, #0e7490, #155e75) !important; }
+      .mode-btn.mode-both { background: linear-gradient(135deg, #84cc16, #4d7c0f) !important; }
+      .mode-btn.mode-translate { background: linear-gradient(135deg, #2dd4bf, #0f766e) !important; }
+      .mode-btn.mode-weak { background: linear-gradient(135deg, #6366f1, #3730a3) !important; }
+      .mode-progress { background: linear-gradient(135deg, #d1fae5, #ecfccb) !important; border-color: #a7f3d0 !important; }
+      .mode-progress-item { background: rgba(255,255,255,.92) !important; color: #14532d !important; }
+      .mode-progress-item.completed { background: #dcfce7 !important; color: #166534 !important; }
+      .mode-progress-item.completed .mode-progress-mark { background: #16a34a !important; border-color: #16a34a !important; }
+      .mode-progress-mark { border-color: #6ee7b7 !important; color: #047857 !important; }
+      .reset-progress-btn { color: #047857 !important; }
+      .progress-dots { background: rgba(16,185,129,.12) !important; }
+      .dot { background: #ecfdf5 !important; border-color: #a7f3d0 !important; color: #065f46 !important; }
+      .dot.current { background: #d9f99d !important; border-color: #65a30d !important; color: #365314 !important; }
+      .dot.correct { background: linear-gradient(135deg, #34d399, #047857) !important; border-color: #047857 !important; }
+      .dot.wrong { background: linear-gradient(135deg, #818cf8, #4338ca) !important; border-color: #4338ca !important; }
+      .answer-btn { background: linear-gradient(135deg, #0f9f83, #065f55) !important; border-color: #064e3b !important; box-shadow: 0 5px 15px rgba(6,95,70,.22) !important; }
+      .answer-btn:hover:not(:disabled) { background: linear-gradient(135deg, #34d399, #0f766e) !important; border-color: #047857 !important; }
+      .correct, .feedback .correct { color: #047857 !important; }
+      .incorrect { color: #4f46e5 !important; }
+      .score-block { background: linear-gradient(135deg, #ecfdf5, #d9f99d) !important; border-color: #86efac !important; }
+      .score-line, .score-line strong, .no-mistakes-text { color: #065f46 !important; }
+      .play-again-btn { background: linear-gradient(135deg, #10b981, #047857) !important; border-color: #065f46 !important; }
+      .play-again-btn:hover { background: linear-gradient(135deg, #34d399, #0f766e) !important; border-color: #047857 !important; }
+      .streak-counter { border-color: #6ee7b7 !important; }
+      button:not(.mode-btn) { accent-color: #059669; }
+    </style>
+
+</head>
+<body>
+    <!-- Счётчик серии -->
+    <div class="streak-counter" id="streak-counter">
+        <div class="streak-label">Серия правильных ответов</div>
+        <div class="streak-number"><span class="streak-fire">🔥</span> <span id="streak-number">0</span></div>
+    </div>
+
+    <!-- Уведомление о достижении -->
+    <div class="achievement-popup" id="achievement-popup">
+        <div class="achievement-emoji" id="achievement-emoji"></div>
+        <div class="achievement-title" id="achievement-title"></div>
+        <div class="achievement-desc" id="achievement-desc"></div>
+    </div>
+
+    <div class="container">
+        <!-- Экран выбора режима -->
+        <div id="mode-screen" class="mode-screen">
+            <h1>🎓 Irregular Verbs Quiz</h1>
+            <p class="subtitle">Глаголы 91-103</p>
+            
+            <div class="mode-title">Выбери режим игры:</div>
+            
+            <div class="mode-buttons">
+                <button class="mode-btn mode-v2" onclick="startGame('v2')">
+                    <span class="mode-emoji">💎</span>
+                    Только V2
+                    <span class="mode-desc">15 вопросов • вторая форма глагола</span>
+                </button>
+                
+                <button class="mode-btn mode-v3" onclick="startGame('v3')">
+                    <span class="mode-emoji">🔮</span>
+                    Только V3
+                    <span class="mode-desc">15 вопросов • третья форма глагола</span>
+                </button>
+                
+                <button class="mode-btn mode-both" onclick="startGame('both')">
+                    <span class="mode-emoji">🌊</span>
+                    V2 и V3
+                    <span class="mode-desc">15 вопросов • смешанный режим</span>
+                </button>
+
+                <button class="mode-btn mode-translate" onclick="startGame('translate')">
+                    <span class="mode-emoji">🎯</span>
+                    Перевод → форма
+                    <span class="mode-desc">15 вопросов • дан перевод, выбери форму</span>
+                </button>
+
+                <button class="mode-btn mode-weak" id="weak-mode-btn" onclick="startGame('weak')" disabled>
+                    <span class="mode-emoji">🔒</span>
+                    <span id="weak-mode-title">Трудные для меня глаголы 🔒</span>
+                    <span class="mode-desc" id="weak-mode-desc">Откроется после 4 предыдущих режимов</span>
+                </button>
+            </div>
+
+            <section class="mode-progress" aria-labelledby="mode-progress-title">
+                <div class="mode-progress-title progress-grid" id="mode-progress-title">🏅 Твой прогресс</div>
+                <ul class="mode-progress-list" id="mode-progress-list"></ul>
+                <button class="reset-progress-btn" onclick="resetModeProgress()">Сбросить отметки</button>
+            </section>
+        </div>
+
+        <!-- Экран игры -->
+        <div id="quiz-screen" class="hidden">
+            <h1>🎓 Irregular Verbs Quiz</h1>
+            <p class="subtitle">Глаголы 91-103</p>
+            <p class="subtitle" id="current-mode-label" style="display:block; margin-top:-20px;"></p>
+            
+            <div class="progress-dots" id="progress-dots"></div>
+
+            <div class="question" id="question"></div>
+
+            <div class="answers" id="answers"></div>
+
+            <div class="feedback" id="feedback"></div>
+        </div>
+
+        <!-- Экран результатов -->
+        <div class="final-screen" id="final-screen">
+            <div class="emoji" id="final-emoji"></div>
+            <h2>Викторина завершена!</h2>
+            <div class="score-block">
+                <div class="score-line">✅ Верно с первого раза: <strong id="first-try-count"></strong></div>
+                <div class="score-line">📊 Результат:</div>
+                <div class="percent" id="final-percent"></div>
+                <div class="score-line">🔥 Лучшая серия: <strong id="best-streak"></strong></div>
+            </div>
+
+            <!-- Достижения -->
+            <div id="achievements-container"></div>
+            
+            <!-- Разбор ошибок -->
+            <div id="mistakes-container"></div>
+            
+            <button class="play-again-btn" onclick="backToMenu()">🔄 Выбрать другой режим</button>
+        </div>
+    </div>
+
+    <script>
+        const TOTAL_QUESTIONS = 15;
+        let currentTotalQuestions = TOTAL_QUESTIONS;
+        let weakSessionTargets = [];
+        let weakSessionMistakes = [];
+
+        const verbs = [
+            { base: 'sweep', v2: 'swept', v3: 'swept', translation: 'подметать' },
+            { base: 'swim', v2: 'swam', v3: 'swum', translation: 'плавать' },
+            { base: 'take', v2: 'took', v3: 'taken', translation: 'взять; брать' },
+            { base: 'teach', v2: 'taught', v3: 'taught', translation: 'учить, обучать' },
+            { base: 'tear', v2: 'tore', v3: 'torn', translation: 'рвать' },
+            { base: 'tell', v2: 'told', v3: 'told', translation: 'рассказывать; сказать' },
+            { base: 'think', v2: 'thought', v3: 'thought', translation: 'думать' },
+            { base: 'throw', v2: 'threw', v3: 'thrown', translation: 'бросить' },
+            { base: 'understand', v2: 'understood', v3: 'understood', translation: 'понимать' },
+            { base: 'wake', v2: 'woke', v3: 'woken', translation: 'просыпаться; будить' }
+        ];
+
+                const achievements = [
+            { streak: 3, emoji: '🥉', title: 'Бронзовая серия!', desc: '3 правильных ответа подряд' },
+            { streak: 5, emoji: '🥈', title: 'Серебряная серия!', desc: '5 правильных ответов подряд' },
+            { streak: 10, emoji: '🥇', title: 'Золотая серия!', desc: '10 правильных ответов подряд' },
+            { streak: 15, emoji: '🏆', title: 'Идеальная игра!', desc: 'Все 15 ответов верны!' }
+        ];
+
+        let currentMode = 'both';
+        let currentQuestionIndex = 0;
+        let scoreFirstTry = 0;
+        let questions = [];
+        let currentVerb = null;
+        let currentForm = null;
+        let correctAnswer = '';
+        let firstAttempt = true;
+        let dotStates = [];
+        let mistakes = [];
+        let currentStreak = 0;
+        let bestStreak = 0;
+        let earnedAchievements = [];
+
+        const modeLabels = {
+            'v2': '💎 Режим: Только V2',
+            'v3': '🔮 Режим: Только V3',
+            'both': '🌊 Режим: V2 и V3',
+            'translate': '🎯 Режим: Перевод → форма',
+            'weak': '💪 Режим: Трудные для меня глаголы'
+        };
+
+        function shuffle(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        function shuffleWithoutConsecutiveVerbRepeats(array) {
+            const remaining = shuffle(array);
+            const result = [];
+
+            while (remaining.length > 0) {
+                const previous = result.length
+                    ? result[result.length - 1].verb.base
+                    : null;
+                const candidates = [];
+
+                for (let i = 0; i < remaining.length; i++) {
+                    if (remaining[i].verb.base !== previous) candidates.push(i);
+                }
+
+                if (candidates.length === 0) {
+                    result.push(...remaining);
+                    break;
+                }
+
+                const chosenIndex = candidates[Math.floor(Math.random() * candidates.length)];
+                result.push(remaining.splice(chosenIndex, 1)[0]);
+            }
+
+            return result;
+        }
+
+        function generateQuestionPool(mode) {
+            const pool = [];
+            if (mode === 'weak') {
+                return getWeakVerbs().map(item => ({
+                    verb: verbs.find(v => v.base === item.base),
+                    form: item.form
+                })).filter(item => item.verb);
+            }
+            if (mode === 'v2') {
+                verbs.forEach(verb => pool.push({ verb, form: 'v2' }));
+            } else if (mode === 'v3') {
+                verbs.forEach(verb => pool.push({ verb, form: 'v3' }));
+            } else if (mode === 'both' || mode === 'translate') {
+                verbs.forEach(verb => {
+                    pool.push({ verb, form: 'v2' });
+                    pool.push({ verb, form: 'v3' });
+                });
+            }
+            return pool;
+        }
+
+        function getWeakQuestionCount(weakCount) {
+            if (weakCount <= 3) return Math.max(weakCount, 5);
+            if (weakCount <= 6) return Math.max(weakCount, 8);
+            if (weakCount <= 10) return Math.max(weakCount, 12);
+            return weakCount; // Все проблемные формы обязательно попадут в тренировку.
+        }
+
+        function buildQuestions(mode, desiredCount = TOTAL_QUESTIONS) {
+            const pool = generateQuestionPool(mode);
+            if (mode === 'weak' && pool.length === 0) return [];
+
+            if (mode === 'weak') {
+                // Сначала включаем каждую проблемную форму ровно один раз.
+                const weakItems = shuffle(pool);
+                const weakKeys = new Set(weakItems.map(item => `${item.verb.base}|${item.form}`));
+                const allForms = generateQuestionPool('both');
+                const supplements = shuffle(allForms.filter(
+                    item => !weakKeys.has(`${item.verb.base}|${item.form}`)
+                ));
+                const targetCount = Math.min(allForms.length, Math.max(desiredCount, weakItems.length));
+                return shuffleWithoutConsecutiveVerbRepeats([...weakItems, ...supplements.slice(0, targetCount - weakItems.length)]);
+            }
+
+            let result = shuffle(pool);
+            if (result.length >= desiredCount) {
+                return shuffleWithoutConsecutiveVerbRepeats(result.slice(0, desiredCount));
+            }
+
+            const extra = [];
+            while (result.length + extra.length < desiredCount) {
+                const randomItem = pool[Math.floor(Math.random() * pool.length)];
+                extra.push({ ...randomItem });
+            }
+            return shuffleWithoutConsecutiveVerbRepeats([...result, ...extra]);
+        }
+
+        function getWrongAnswers(correctForm, formType) {
+            const pool = [...new Set(verbs
+                .map(verb => verb[formType])
+                .filter(formValue => formValue !== correctForm))];
+            return shuffle(pool).slice(0, 3);
+        }
+
+        function renderDots() {
+            const container = document.getElementById('progress-dots');
+            container.innerHTML = '';
+            dotStates.forEach((state, index) => {
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                if (state === 'current') dot.classList.add('current');
+                else if (state === 'correct') dot.classList.add('correct');
+                else if (state === 'wrong') dot.classList.add('wrong');
+                dot.textContent = index + 1;
+                container.appendChild(dot);
+            });
+        }
+
+        function updateStreak(isCorrect) {
+            if (isCorrect) {
+                currentStreak++;
+                if (currentStreak > bestStreak) {
+                    bestStreak = currentStreak;
+                }
+                document.getElementById('streak-number').textContent = currentStreak;
+                document.getElementById('streak-counter').classList.add('active');
+
+                checkAchievements();
+            } else {
+                currentStreak = 0;
+                document.getElementById('streak-counter').classList.remove('active');
+            }
+        }
+
+        function checkAchievements() {
+            achievements.forEach(achievement => {
+                if (currentStreak === achievement.streak && !earnedAchievements.includes(achievement.streak)) {
+                    earnedAchievements.push(achievement.streak);
+                    showAchievement(achievement);
+                }
+            });
+        }
+
+        function showAchievement(achievement) {
+            const popup = document.getElementById('achievement-popup');
+            document.getElementById('achievement-emoji').textContent = achievement.emoji;
+            document.getElementById('achievement-title').textContent = achievement.title;
+            document.getElementById('achievement-desc').textContent = achievement.desc;
+            
+            popup.classList.add('show');
+            playAchievementSound();
+
+            setTimeout(() => {
+                popup.classList.remove('show');
+            }, 2500);
+        }
+
+        function createQuestion() {
+            const questionData = questions[currentQuestionIndex];
+            currentVerb = questionData.verb;
+            currentForm = questionData.form;
+            firstAttempt = true;
+
+            dotStates[currentQuestionIndex] = 'current';
+            renderDots();
+
+            const questionContainer = document.getElementById('question');
+            
+            if (currentMode === 'translate') {
+                const formName = currentForm === 'v2' ? 'вторая форма (V2)' : 'третья форма (V3)';
+                questionContainer.innerHTML = `
+                    <div>Какая ${formName} глагола "<strong>${currentVerb.translation}</strong>"?</div>
+                `;
+            } else {
+                const formName = currentForm === 'v2' ? 'вторая форма (V2)' : 'третья форма (V3)';
+                questionContainer.innerHTML = `
+                    <div>Какая ${formName} глагола "<strong>${currentVerb.base}</strong>"?</div>
+                    <div class="translation">(${currentVerb.translation})</div>
+                `;
+            }
+
+            correctAnswer = currentVerb[currentForm];
+            const wrongAnswers = getWrongAnswers(correctAnswer, currentForm);
+            const allAnswers = shuffle([correctAnswer, ...wrongAnswers]);
+
+            const answersContainer = document.getElementById('answers');
+            answersContainer.innerHTML = '';
+
+            allAnswers.forEach(answer => {
+                const btn = document.createElement('button');
+                btn.className = 'answer-btn';
+                btn.textContent = answer;
+                btn.onclick = () => checkAnswer(answer, btn);
+                answersContainer.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(answer, btn) {
+            const feedback = document.getElementById('feedback');
+            const buttons = document.querySelectorAll('.answer-btn');
+
+            if (answer === correctAnswer) {
+                playCorrectSound();
+                buttons.forEach(b => b.disabled = true);
+                
+                if (firstAttempt) {
+                    scoreFirstTry++;
+                    feedback.innerHTML = '<span class="correct">✓ Correct!</span>';
+                    dotStates[currentQuestionIndex] = 'correct';
+                    updateStreak(true);
+                } else {
+                    feedback.innerHTML = '<span class="correct">✓ OK!</span>';
+                }
+
+                renderDots();
+
+                setTimeout(() => {
+                    feedback.innerHTML = '';
+                    currentQuestionIndex++;
+
+                    if (currentQuestionIndex < currentTotalQuestions) {
+                        createQuestion();
+                    } else {
+                        showFinalScreen();
+                    }
+                }, 1200);
+            } else {
+                playIncorrectSound();
+                if (firstAttempt) {
+                    mistakes.push({
+                        verb: currentVerb,
+                        form: currentForm
+                    });
+                    if (currentMode !== 'weak') {
+                        saveWeakMistake(currentVerb, currentForm);
+                    } else {
+                        const key = `${currentVerb.base}|${currentForm}`;
+                        if (!weakSessionMistakes.includes(key)) weakSessionMistakes.push(key);
+                    }
+                    updateStreak(false);
+                }
+                firstAttempt = false;
+                feedback.innerHTML = '<span class="incorrect">✗ Try again!</span>';
+                btn.disabled = true;
+                if (dotStates[currentQuestionIndex] === 'current') {
+                    dotStates[currentQuestionIndex] = 'wrong';
+                    renderDots();
+                }
+
+                setTimeout(() => {
+                    feedback.innerHTML = '';
+                }, 1500);
+            }
+        }
+
+        function renderAchievements() {
+            const container = document.getElementById('achievements-container');
+            container.innerHTML = '';
+
+            if (earnedAchievements.length === 0) {
+                return;
+            }
+
+            let html = `
+                <div class="achievements-block">
+                    <div class="achievements-title">🏅 Полученные достижения:</div>
+            `;
+
+            earnedAchievements.forEach(streak => {
+                const achievement = achievements.find(a => a.streak === streak);
+                html += `
+                    <div class="achievement-badge">
+                        <span class="badge-emoji">${achievement.emoji}</span>
+                        <span class="badge-text">${achievement.title}</span>
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+            container.innerHTML = html;
+        }
+
+        function renderMistakes() {
+            const container = document.getElementById('mistakes-container');
+            container.innerHTML = '';
+
+            if (mistakes.length === 0) {
+                container.innerHTML = `
+                    <div class="no-mistakes">
+                        <div style="font-size: 3em; margin-bottom: 10px;">🎉</div>
+                        <div class="no-mistakes-text">Отлично! Все ответы верны с первого раза!</div>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = `
+                <div class="mistakes-block">
+                    <div class="mistakes-title">📝 Разбор ошибок — повтори эти глаголы!</div>
+            `;
+
+            mistakes.forEach(m => {
+                const formName = m.form === 'v2' ? 'V2' : 'V3';
+                const correctForm = m.verb[m.form];
+                html += `
+                    <div class="mistake-card">
+                        <div class="mistake-verb">${m.verb.base} — ${m.verb.v2} — ${m.verb.v3}</div>
+                        <div class="mistake-translation">${m.verb.translation}</div>
+                        <div class="mistake-forms">
+                            Правильный ответ для <strong>${formName}</strong>: 
+                            <span class="correct-form">${correctForm}</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+            container.innerHTML = html;
+        }
+
+        function showFinalScreen() {
+            markModeCompleted(currentMode);
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('final-screen').style.display = 'block';
+            document.getElementById('streak-counter').classList.remove('active');
+
+            const percent = Math.round((scoreFirstTry / currentTotalQuestions) * 100);
+
+            document.getElementById('first-try-count').textContent = `${scoreFirstTry} из ${currentTotalQuestions}`;
+            document.getElementById('final-percent').textContent = `${percent}%`;
+            document.getElementById('best-streak').textContent = bestStreak;
+
+            const emoji = document.getElementById('final-emoji');
+            if (percent === 100) {
+                emoji.textContent = '🏆';
+            } else if (percent >= 80) {
+                emoji.textContent = '🌟';
+            } else if (percent >= 60) {
+                emoji.textContent = '👍';
+            } else if (percent >= 40) {
+                emoji.textContent = '📚';
+            } else {
+                emoji.textContent = '💪';
+            }
+
+            renderAchievements();
+            renderMistakes();
+            if (currentMode === 'weak' && weakSessionTargets.length) {
+                const mastered = weakSessionTargets.filter(item =>
+                    !weakSessionMistakes.includes(`${item.base}|${item.form}`)
+                );
+                const needsPractice = weakSessionTargets.filter(item =>
+                    weakSessionMistakes.includes(`${item.base}|${item.form}`)
+                );
+                const summary = document.createElement('div');
+                summary.className = 'mistakes-block';
+                summary.innerHTML = `
+                    <div class="mistakes-title">🎯 Результат по трудным для меня формам</div>
+                    <p>Без ошибок с первой попытки: <strong>${mastered.length} из ${weakSessionTargets.length}</strong></p>
+                    ${needsPractice.length
+                        ? `<p>Стоит повторить:</p><div class="mistake-card">${needsPractice.map(item => {
+                            const verb = verbs.find(v => v.base === item.base);
+                            const formName = item.form === 'v2' ? 'V2' : 'V3';
+                            return `<div><strong>${verb.base}</strong> — ${formName}: ${verb[item.form]}</div>`;
+                          }).join('')}</div>`
+                        : '<p>Отлично! Все трудные для меня формы были верны с первой попытки.</p>'}
+                `;
+                document.getElementById('mistakes-container').prepend(summary);
+            }
+        }
+
+        const progressStorageKey = 'irregularVerbsSweepWakeModeProgress91-103';
+        const weakMistakesStorageKey = 'irregularVerbsSweepWakeWeakMistakes91-103';
+
+        // Новый запуск страницы начинает игру с нуля.
+        // Удаляем прогресс режимов и список трудных для меня форм.
+        try {
+            localStorage.removeItem(progressStorageKey);
+            localStorage.removeItem(weakMistakesStorageKey);
+        } catch (e) {}
+        const progressModeOrder = ['v2', 'v3', 'both', 'translate'];
+
+        function getWeakVerbs() {
+            try {
+                return JSON.parse(localStorage.getItem(weakMistakesStorageKey) || '[]');
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveWeakMistake(verb, form) {
+            const items = getWeakVerbs();
+            if (!items.some(item => item.base === verb.base && item.form === form)) {
+                items.push({ base: verb.base, form });
+                try { localStorage.setItem(weakMistakesStorageKey, JSON.stringify(items)); } catch (e) {}
+            }
+            renderModeProgress();
+        }
+
+        function allMainModesCompleted() {
+            const progress = getModeProgress();
+            return progressModeOrder.every(mode => progress[mode] && progress[mode].completed);
+        }
+
+        function updateWeakModeButton() {
+            const button = document.getElementById('weak-mode-btn');
+            const desc = document.getElementById('weak-mode-desc');
+            if (!button || !desc) return;
+            const unlocked = allMainModesCompleted();
+            const weakCount = getWeakVerbs().length;
+            button.disabled = !unlocked || weakCount === 0;
+            button.querySelector('.mode-emoji').textContent = unlocked && weakCount > 0 ? '💪' : '🔒';
+            document.getElementById('weak-mode-title').textContent = unlocked ? 'Трудные для меня глаголы' : 'Трудные для меня глаголы 🔒';
+            desc.textContent = !unlocked
+                ? 'Откроется после 4 предыдущих режимов'
+                : weakCount > 0
+                    ? `${weakCount} форм глаголов, в которых были ошибки`
+                    : 'Ошибок нет — отлично! Режим не требуется';
+        }
+
+        function getModeProgress() {
+            try {
+                return JSON.parse(localStorage.getItem(progressStorageKey) || '{}');
+            } catch (e) {
+                return {};
+            }
+        }
+
+        function renderModeProgress() {
+            const list = document.getElementById('mode-progress-list');
+            if (!list) return;
+            const progress = getModeProgress();
+            list.innerHTML = progressModeOrder.map(mode => {
+                const result = progress[mode];
+                const completed = Boolean(result && result.completed);
+                const label = modeLabels[mode].replace(/^\S+\s+Режим: /, '');
+                const resultText = completed
+                    ? `${result.score}/${TOTAL_QUESTIONS} · ${result.percent}%`
+                    : '—';
+                return `<li class="mode-progress-item ${completed ? 'completed' : ''}">
+                    <span class="mode-progress-mark">${completed ? '✓' : '○'}</span>
+                    <span>${label}</span>
+                    <span class="mode-progress-result">${resultText}<span class="mode-progress-status">${completed ? 'Пройдено' : 'Не пройдено'}</span></span>
+                </li>`;
+            }).join('');
+            updateWeakModeButton();
+        }
+
+        function markModeCompleted(mode) {
+            const progress = getModeProgress();
+            const percent = Math.round((scoreFirstTry / currentTotalQuestions) * 100);
+            progress[mode] = { completed: true, score: scoreFirstTry, percent };
+            try { localStorage.setItem(progressStorageKey, JSON.stringify(progress)); } catch (e) {}
+            renderModeProgress();
+        }
+
+        function resetModeProgress() {
+            if (!confirm('Сбросить отметки о прохождении всех режимов?')) return;
+            try { localStorage.removeItem(progressStorageKey); } catch (e) {}
+            renderModeProgress();
+        }
+
+        function startGame(mode) {
+            if (mode === 'weak' && (!allMainModesCompleted() || getWeakVerbs().length === 0)) return;
+            currentMode = mode;
+            currentQuestionIndex = 0;
+            scoreFirstTry = 0;
+            mistakes = [];
+            currentStreak = 0;
+            bestStreak = 0;
+            earnedAchievements = [];
+            weakSessionMistakes = [];
+            weakSessionTargets = mode === 'weak'
+                ? getWeakVerbs().map(item => ({ base: item.base, form: item.form }))
+                : [];
+
+            if (mode === 'weak') {
+                currentTotalQuestions = getWeakQuestionCount(weakSessionTargets.length);
+                questions = buildQuestions(mode, currentTotalQuestions);
+                currentTotalQuestions = questions.length;
+            } else {
+                currentTotalQuestions = TOTAL_QUESTIONS;
+                questions = buildQuestions(mode);
+            }
+            if (questions.length === 0) return;
+
+            dotStates = new Array(currentTotalQuestions).fill('pending');
+
+            document.getElementById('mode-screen').classList.add('hidden');
+            document.getElementById('final-screen').style.display = 'none';
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            document.getElementById('current-mode-label').textContent = modeLabels[mode];
+            document.getElementById('feedback').innerHTML = '';
+
+            renderDots();
+            createQuestion();
+        }
+
+        function backToMenu() {
+            renderModeProgress();
+            document.getElementById('final-screen').style.display = 'none';
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('mode-screen').classList.remove('hidden');
+        }
+
+        function playCorrectSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const notes = [523.25, 659.25, 783.99];
+                notes.forEach((freq, i) => {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    oscillator.frequency.value = freq;
+                    oscillator.type = 'sine';
+                    const startTime = audioContext.currentTime + i * 0.08;
+                    gainNode.gain.setValueAtTime(0.3, startTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + 0.25);
+                    oscillator.start(startTime);
+                    oscillator.stop(startTime + 0.25);
+                });
+            } catch (e) {
+                console.log('Audio error:', e);
+            }
+        }
+
+        function playIncorrectSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                oscillator.frequency.setValueAtTime(300, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(150, audioContext.currentTime + 0.3);
+                oscillator.type = 'sawtooth';
+                gainNode.gain.setValueAtTime(0.25, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.3);
+            } catch (e) {
+                console.log('Audio error:', e);
+            }
+        }
+
+        renderModeProgress();
+
+        function playAchievementSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const notes = [523.25, 659.25, 783.99, 1046.50];
+                notes.forEach((freq, i) => {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    oscillator.frequency.value = freq;
+                    oscillator.type = 'sine';
+                    const startTime = audioContext.currentTime + i * 0.12;
+                    gainNode.gain.setValueAtTime(0.35, startTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + 0.3);
+                    oscillator.start(startTime);
+                    oscillator.stop(startTime + 0.3);
+                });
+            } catch (e) {
+                console.log('Audio error:', e);
+            }
+        }
+    </script>
+</body>
+</html>
